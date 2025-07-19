@@ -1,7 +1,11 @@
 part of 'injection_container.dart';
 
 Future<void> _initDataSources() async {
-  // sl.registerFactory(
-  //   () => HomeDataSourceImpl(dioClient: sl.get<DioClient>()),
-  // );
+  sl.registerSingleton<Dio>(Dio());
+  sl.registerSingleton<HomeDataSource>(
+    HomeDataSourceImpl(
+      apiClient: ApiClient.instance
+        ..init(baseUrl: ApiEndpoints.baseUrl, cacheService: CacheService()),
+    ),
+  );
 }

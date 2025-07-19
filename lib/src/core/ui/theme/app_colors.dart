@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-sealed class AppColors extends ThemeExtension<AppColors> {
-  const AppColors();
-
+class AppColors {
   static const Color transparent = Color(0x00000000);
   static const Color lightBlue = Color.fromARGB(255, 100, 181, 246);
   static const Color deepBlue = Color(0xff337eff);

@@ -1,3 +1,83 @@
+// import 'package:dio/dio.dart';
+// import 'package:stackfood/src/core/utils/utils.dart';
+
+// class ApiClient {
+//   final Dio _dio;
+
+//   ApiClient(this._dio) {
+//     _dio.options = BaseOptions(
+//       baseUrl: 'https://stackfood-admin.6amtech.com/api/v1',
+//       connectTimeout: const Duration(milliseconds: 30000),
+//       receiveTimeout: const Duration(milliseconds: 30000),
+//       headers: {
+//         'Content-Type': 'application/json; charset=UTF-8',
+//         'zoneId': '[1]',
+//         'latitude': '23.735129',
+//         'longitude': '90.425614',
+//       },
+//     );
+//   }
+
+//   Future<Response> get(
+//     String path, {
+//     Map<String, dynamic>? queryParameters,
+//     Map<String, String>? headers,
+//   }) async {
+//     try {
+//       Log.info('Request URL: ${_dio.options.baseUrl + path}');
+//       Log.info('Query Parameters: $queryParameters');
+
+//       final response = await _dio.get(
+//         path,
+//         queryParameters: queryParameters,
+//         options: Options(headers: headers),
+//       );
+
+//       Log.info('Response: ${response.data}');
+//       return response;
+//     } on DioException catch (dioError) {
+//       final errorMessage = _handleDioError(dioError);
+//       Log.error('DioException: $errorMessage');
+//       throw DioClientException(
+//         message: errorMessage,
+//         statusCode: dioError.response?.statusCode,
+//       );
+//     } catch (e) {
+//       Log.error('Unexpected error: $e');
+//       throw DioClientException(message: 'Unexpected error: $e');
+//     }
+//   }
+
+//   String _handleDioError(DioException error) {
+//     switch (error.type) {
+//       case DioExceptionType.connectionTimeout:
+//         return 'Connection timeout';
+//       case DioExceptionType.sendTimeout:
+//         return 'Send timeout';
+//       case DioExceptionType.receiveTimeout:
+//         return 'Receive timeout';
+//       case DioExceptionType.badResponse:
+//         return 'Server error: ${error.response?.statusCode} ${error.response?.statusMessage}';
+//       case DioExceptionType.cancel:
+//         return 'Request cancelled';
+//       case DioExceptionType.unknown:
+//         return 'No internet!: ${error.message}';
+//       default:
+//         return 'No internet or server error';
+//     }
+//   }
+// }
+
+// class DioClientException implements Exception {
+//   final String message;
+//   final int? statusCode;
+
+//   DioClientException({required this.message, this.statusCode});
+
+//   @override
+//   String toString() => message;
+// }
+
 // api_client.dart
 import 'dart:convert';
 import 'dart:io';
@@ -51,12 +131,12 @@ class ApiClient {
     _dio = Dio(options)
       ..interceptors.addAll([
         PrettyDioLogger(requestHeader: true, requestBody: true),
-        DynamicInterceptor(
-          baseUrl: baseUrl,
-          cacheService: cacheService,
-          refreshTokenUrl: refreshTokenUrl,
-          onTokenRefresh: onTokenRefresh,
-        ),
+        // DynamicInterceptor(
+        //   baseUrl: baseUrl,
+        //   cacheService: cacheService,
+        //   refreshTokenUrl: refreshTokenUrl,
+        //   onTokenRefresh: onTokenRefresh,
+        // ),
       ]);
   }
 
@@ -332,10 +412,11 @@ class ApiClient {
   }) async {
     final baseOptions = switch (apiType) {
       APIType.public => PublicApiOptions().options,
-      APIType.private => await ProtectedApiOptions(
-        cacheService: _cacheService,
-        tokenType: tokenType,
-      ).options,
+      APIType.private => PublicApiOptions().options,
+      // await ProtectedApiOptions(
+      //   cacheService: _cacheService,
+      //   tokenType: tokenType,
+      // ).options,
     };
 
     if (extraHeaders != null) {

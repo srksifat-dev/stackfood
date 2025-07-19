@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stackfood/src/core/theme/app_colors.dart';
+import 'package:stackfood/src/core/ui/theme/app_colors.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -11,7 +11,7 @@ class AppDrawer extends StatelessWidget {
         padding: EdgeInsets.zero,
         children: [
           // Drawer header
-          const DrawerHeader(
+          DrawerHeader(
             decoration: BoxDecoration(color: AppColors.green),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -24,7 +24,7 @@ class AppDrawer extends StatelessWidget {
                 ),
                 SizedBox(height: 8),
                 Text(
-                  'John Doe',
+                  'StackFood',
                   style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
               ],
@@ -32,7 +32,7 @@ class AppDrawer extends StatelessWidget {
           ),
 
           // Dummy menu items
-          _buildTile(Icons.home, 'Item 1', () {}),
+          _buildTile(Icons.home, 'Home', () {}),
           _buildTile(Icons.directions_car, 'Item 2', () {}),
           _buildTile(Icons.history, 'Item 3', () {}),
           _buildTile(Icons.settings, 'Item 4', () {}),

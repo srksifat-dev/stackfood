@@ -5,10 +5,11 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:stackfood/src/core/app/router/view/nav_bar.dart';
-import 'package:stackfood/src/core/extensions/path.dart';
+import 'package:stackfood/src/core/extensions/path_extension.dart';
 import 'package:stackfood/src/core/widgets/error_screen.dart';
 import 'package:stackfood/src/features/cart/presentation/view/cart_screen.dart';
 import 'package:stackfood/src/features/home/presentation/view/home_screen.dart';
+import 'package:stackfood/src/features/more/presentation/view/more_screen.dart';
 import 'package:stackfood/src/features/order/presentation/view/order_screen.dart';
 import 'package:stackfood/src/features/wishlist/presentation/view/wishlist_screen.dart';
 
@@ -18,6 +19,7 @@ class Routes {
   static const wishlistScreen = "wishlist";
   static const cartScreen = "cart";
   static const orderScreen = "order";
+  static const moreScreen = "more";
 }
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(
@@ -41,6 +43,7 @@ StatefulShellRoute _buildShellRoutes() {
       StatefulShellBranch(routes: [_buildWishlistScreenRoute()]),
       StatefulShellBranch(routes: [_buildMyCartRoute()]),
       StatefulShellBranch(routes: [_buildMyOrderRoute()]),
+      StatefulShellBranch(routes: [_buildMoreRoute()]),
     ],
   );
 }
@@ -83,6 +86,14 @@ GoRoute _buildMyOrderRoute() => GoRoute(
   name: Routes.orderScreen,
   pageBuilder: _getDefaultPageBuilderByPlatform(
     childBuilder: (_, __) => const OrderScreen(),
+  ),
+);
+
+GoRoute _buildMoreRoute() => GoRoute(
+  path: Routes.moreScreen.p,
+  name: Routes.moreScreen,
+  pageBuilder: _getDefaultPageBuilderByPlatform(
+    childBuilder: (_, __) => const MoreScreen(),
   ),
 );
 
