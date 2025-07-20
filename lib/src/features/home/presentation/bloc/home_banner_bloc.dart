@@ -4,6 +4,7 @@ import 'package:stackfood/src/features/home/domain/usecases/get_home_banner_usec
 import 'package:stackfood/src/features/home/presentation/event/home_event.dart';
 import 'package:stackfood/src/features/home/presentation/state/home_banner_state.dart';
 
+/// BLoC responsible for managing the state of home banners.
 class HomeBannerBloc extends Bloc<HomeEvent, HomeBannerState> {
   final GetHomeBannerUsecase getHomeBannerUsecase;
 

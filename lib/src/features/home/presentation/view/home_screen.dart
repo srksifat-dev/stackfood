@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:stackfood/src/core/base/bloc/global_refresh_cubit.dart';
 import 'package:stackfood/src/core/base/model/pagination_query_model.dart';
 import 'package:stackfood/src/core/constants/app_spacing.dart';
 import 'package:stackfood/src/core/constants/app_strings.dart';
@@ -96,15 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _onRefresh() async {
-    _isLoadingMore = false;
-    _currentPage = 1;
-
-    context.read<HomeRestaurantBloc>().add(
-      GetHomeRestaurantEvent(
-        isFirstPage: true,
-        params: PaginationQuery(offset: 1, limit: _pageSize),
-      ),
-    );
+    context.read<GlobalRefreshCubit>().refresh();
   }
 
   @override
@@ -188,39 +181,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 // Restaurant
                 HomeTitle(title: AppStrings.restaurants, onViewAllTap: () {}),
                 HomeRestaurant(),
-
-                // Loading indicator for pagination
-                // BlocBuilder<HomeRestaurantBloc, HomeRestaurantState>(
-                //   builder: (context, state) {
-                //     if (state is GetHomeRestaurantDone && state.isLoadingMore) {
-                //       return const SliverToBoxAdapter(
-                //         child: Padding(
-                //           padding: EdgeInsets.all(16.0),
-                //           child: Center(child: CircularProgressIndicator()),
-                //         ),
-                //       );
-                //     }
-
-                //     // Show "No more data" message if reached max
-                //     if (state is GetHomeRestaurantDone &&
-                //         state.hasReachedMax &&
-                //         state.homeRestaurants!.isNotEmpty) {
-                //       return const SliverToBoxAdapter(
-                //         child: Padding(
-                //           padding: EdgeInsets.all(16.0),
-                //           child: Center(
-                //             child: Text(
-                //               'No more restaurants to load',
-                //               style: TextStyle(color: Colors.grey),
-                //             ),
-                //           ),
-                //         ),
-                //       );
-                //     }
-
-                //     return const SliverToBoxAdapter(child: SizedBox.shrink());
-                //   },
-                // ),
                 const SliverGap(AppSpacing.xxxlg),
               ],
             ),

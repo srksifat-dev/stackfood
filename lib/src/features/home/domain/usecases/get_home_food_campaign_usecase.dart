@@ -4,6 +4,7 @@ import 'package:stackfood/src/core/exception/failures.dart';
 import 'package:stackfood/src/features/home/domain/entities/home_food_campaign_entity.dart';
 import 'package:stackfood/src/features/home/domain/repositories/home_repository.dart';
 
+/// Use case for retrieving home food campaign data.
 class GetHomeFoodCampaignUsecase
     implements UseCase<Either<Failure, List<HomeFoodCampaignEntity>>, void> {
   final HomeRepository _homeRepository;

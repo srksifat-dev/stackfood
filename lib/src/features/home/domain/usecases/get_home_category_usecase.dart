@@ -4,6 +4,7 @@ import 'package:stackfood/src/core/exception/failures.dart';
 import 'package:stackfood/src/features/home/domain/entities/home_category_entity.dart';
 import 'package:stackfood/src/features/home/domain/repositories/home_repository.dart';
 
+/// Use case for retrieving home category data.
 class GetHomeCategoryUsecase
     implements UseCase<Either<Failure, List<HomeCategoryEntity>>, void> {
   final HomeRepository _homeRepository;

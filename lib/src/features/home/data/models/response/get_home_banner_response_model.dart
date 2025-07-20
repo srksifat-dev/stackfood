@@ -1,6 +1,7 @@
 import 'package:stackfood/src/core/utils/safe_parser.dart';
 import 'package:stackfood/src/features/home/domain/entities/home_banner_entity.dart';
 
+/// Response model for fetching home banners.
 class GetHomeBannerResponseModel {
   List<HomeBannerModel>? banners;
 

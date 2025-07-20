@@ -5,6 +5,7 @@ import 'package:stackfood/src/core/exception/failures.dart';
 import 'package:stackfood/src/features/home/data/models/response/get_home_restaurant_response_model.dart';
 import 'package:stackfood/src/features/home/domain/repositories/home_repository.dart';
 
+/// Use case for retrieving restaurant data with pagination.
 class GetHomeRestaurantUsecase
     implements
         UseCase<

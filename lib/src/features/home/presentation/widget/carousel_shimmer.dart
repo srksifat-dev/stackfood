@@ -3,6 +3,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 import 'package:stackfood/src/core/ui/widgets/app_carousel.dart';
 import 'package:stackfood/src/core/ui/widgets/static_shimmer_effect.dart';
 
+/// A shimmer loading effect for the image carousel.
 class CarouselShimmer extends StatelessWidget {
   final bool isAnimated;
 
@@ -15,7 +16,8 @@ class CarouselShimmer extends StatelessWidget {
         effect: isAnimated ? null : StaticShimmerEffect(),
         child: AppCarouselSlider(
           autoPlay: false,
-          imageUrls: [
+
+          imageUrls: const [
             'https://placehold.co/600x150',
             'https://placehold.co/600x150',
             'https://placehold.co/600x150',

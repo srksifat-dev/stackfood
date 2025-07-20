@@ -28,7 +28,7 @@ class HomePopularFood extends StatelessWidget {
             ) =>
               BlocListener<GlobalRefreshCubit, bool>(
                 listener: (context, state) {
-                  if (state) {
+                  if (!state) {
                     context.read<HomePopularFoodBloc>().add(
                       GetHomePopularFoodEvent(
                         params: PaginationQuery(offset: 1, limit: 10),

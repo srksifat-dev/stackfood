@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stackfood/src/core/base/bloc/global_refresh_cubit.dart';
 import 'package:stackfood/src/core/ui/widgets/error_state_handler.dart';
 import 'package:stackfood/src/core/utils/responsive.dart';
 import 'package:stackfood/src/features/home/presentation/bloc/home_food_campaign_bloc.dart';
@@ -25,20 +26,31 @@ class HomeFoodCampaign extends StatelessWidget {
               GetHomeFoodCampaignEvent(),
             ),
           ),
-          GetHomeFoodCampaingDone(:final homeFoodCampaigns) => ConstrainedBox(
-            constraints: BoxConstraints(
-              maxHeight: Responsive.isDesktop(context) ? 165 : 135,
-            ),
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemCount: homeFoodCampaigns!.length,
-              itemBuilder: (context, index) {
-                final campaign = homeFoodCampaigns[index];
-                return FoodCampaignItemCard(campaign: campaign);
+          GetHomeFoodCampaingDone(:final homeFoodCampaigns) =>
+            BlocListener<GlobalRefreshCubit, bool>(
+              listener: (context, state) {
+                if (!state) {
+                  context.read<HomeFoodCampaignBloc>().add(
+                    GetHomeFoodCampaignEvent(),
+                  );
+                }
               },
-              separatorBuilder: (context, index) => const SizedBox(width: 10),
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: Responsive.isDesktop(context) ? 165 : 135,
+                ),
+                child: ListView.separated(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: homeFoodCampaigns!.length,
+                  itemBuilder: (context, index) {
+                    final campaign = homeFoodCampaigns[index];
+                    return FoodCampaignItemCard(campaign: campaign);
+                  },
+                  separatorBuilder: (context, index) =>
+                      const SizedBox(width: 10),
+                ),
+              ),
             ),
-          ),
           _ => SizedBox.shrink(),
         },
       ),

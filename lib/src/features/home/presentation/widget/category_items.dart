@@ -21,7 +21,7 @@ class HomeCategory extends StatelessWidget {
             GetHomeCategoryLoading() => CategoryShimmerWidget(),
             GetHomeCategoryDone() => BlocListener<GlobalRefreshCubit, bool>(
               listener: (context, state) {
-                if (state) {
+                if (!state) {
                   context.read<HomeCategoryBloc>().add(GetHomeCategoryEvent());
                 }
               },

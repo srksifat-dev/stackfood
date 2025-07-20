@@ -31,6 +31,7 @@ class HomeCategoryModel extends HomeCategoryEntity {
     required super.imageFullUrl,
   });
 
+  /// Creates a [HomeCategoryModel] from a JSON [map].
   factory HomeCategoryModel.fromMap(Map<String, dynamic> map) {
     return HomeCategoryModel(
       id: safeInt(map['id']),

@@ -1,6 +1,7 @@
 import 'package:stackfood/src/core/utils/safe_parser.dart';
 import 'package:stackfood/src/features/home/domain/entities/home_food_campaign_entity.dart';
 
+/// Response model for fetching food campaigns.
 class GetFoodCampaignResponseModel {
   final List<HomeFoodCampaignModel> campaigns;
 
@@ -12,9 +13,6 @@ class GetFoodCampaignResponseModel {
       );
 }
 
-/// ----------------------------------------------------------
-///  Campaign (ItemCampaign) Model
-/// ----------------------------------------------------------
 class HomeFoodCampaignModel {
   final int id;
   final String image;
@@ -216,16 +214,23 @@ class HomeFoodCampaignModel {
 /// ----------------------------------------------------------
 ///  Nested Models (re-usable)
 /// ----------------------------------------------------------
+
+/// Model for category ID and position.
 class CategoryIdModel {
   final int id;
   final int position;
+
+  /// Creates a [CategoryIdModel] instance.
   CategoryIdModel({required this.id, required this.position});
+
+  /// Creates a [CategoryIdModel] from a JSON [map].
   factory CategoryIdModel.fromMap(Map<String, dynamic> map) => CategoryIdModel(
     id: safeInt(map['id']),
     position: safeInt(map['position']),
   );
 }
 
+/// Model for food item variations.
 class VariationModel {
   final String name;
   final String type;
@@ -233,6 +238,8 @@ class VariationModel {
   final int max;
   final String required;
   final List<VariationValueModel> values;
+
+  /// Creates a [VariationModel] instance.
   VariationModel({
     required this.name,
     required this.type,
@@ -241,6 +248,8 @@ class VariationModel {
     required this.required,
     required this.values,
   });
+
+  /// Creates a [VariationModel] from a JSON [map].
   factory VariationModel.fromMap(Map<String, dynamic> map) => VariationModel(
     name: safeString(map['name']),
     type: safeString(map['type']),
@@ -255,10 +264,15 @@ class VariationModel {
   );
 }
 
+/// Model for a single variation value.
 class VariationValueModel {
   final String label;
   final double optionPrice;
+
+  /// Creates a [VariationValueModel] instance.
   VariationValueModel({required this.label, required this.optionPrice});
+
+  /// Creates a [VariationValueModel] from a JSON [map].
   factory VariationValueModel.fromMap(Map<String, dynamic> map) =>
       VariationValueModel(
         label: safeString(map['label']),
@@ -266,6 +280,7 @@ class VariationValueModel {
       );
 }
 
+/// Model for food item add-ons.
 class AddOnModel {
   final int id;
   final String name;
@@ -280,6 +295,8 @@ class AddOnModel {
   final int? addonCategoryId;
   final List<dynamic> taxIds;
   final List<dynamic> translations;
+
+  /// Creates an [AddOnModel] instance.
   AddOnModel({
     required this.id,
     required this.name,
@@ -295,6 +312,8 @@ class AddOnModel {
     required this.taxIds,
     required this.translations,
   });
+
+  /// Creates an [AddOnModel] from a JSON [map].
   factory AddOnModel.fromMap(Map<String, dynamic> map) => AddOnModel(
     id: safeInt(map['id']),
     name: safeString(map['name']),
@@ -312,11 +331,16 @@ class AddOnModel {
   );
 }
 
+/// Model for food cuisines.
 class CuisineModel {
   final int id;
   final String name;
   final String image;
+
+  /// Creates a [CuisineModel] instance.
   CuisineModel({required this.id, required this.name, required this.image});
+
+  /// Creates a [CuisineModel] from a JSON [map].
   factory CuisineModel.fromMap(Map<String, dynamic> map) => CuisineModel(
     id: safeInt(map['id']),
     name: safeString(map['name']),
@@ -324,6 +348,7 @@ class CuisineModel {
   );
 }
 
+/// Model for API response translations.
 class TranslationModel {
   final int id;
   final String translationableType;
@@ -333,6 +358,8 @@ class TranslationModel {
   final String value;
   final DateTime? createdAt;
   final DateTime? updatedAt;
+
+  /// Creates a [TranslationModel] instance.
   TranslationModel({
     required this.id,
     required this.translationableType,
@@ -343,6 +370,8 @@ class TranslationModel {
     this.createdAt,
     this.updatedAt,
   });
+
+  /// Creates a [TranslationModel] from a JSON [map].
   factory TranslationModel.fromMap(Map<String, dynamic> map) =>
       TranslationModel(
         id: safeInt(map['id']),
@@ -356,6 +385,7 @@ class TranslationModel {
       );
 }
 
+/// Model for storage information (e.g., image storage).
 class StorageModel {
   final int id;
   final String dataType;
@@ -364,6 +394,8 @@ class StorageModel {
   final String value;
   final DateTime createdAt;
   final DateTime updatedAt;
+
+  /// Creates a [StorageModel] instance.
   StorageModel({
     required this.id,
     required this.dataType,
@@ -373,18 +405,22 @@ class StorageModel {
     required this.createdAt,
     required this.updatedAt,
   });
+
+  /// Creates a [StorageModel] from a JSON [map].
   factory StorageModel.fromMap(Map<String, dynamic> map) => StorageModel(
     id: safeInt(map['id']),
     dataType: safeString(map['data_type']),
     dataId: safeString(map['data_id']),
     key: safeString(map['key']),
     value: safeString(map['value']),
-    createdAt: safeDateTime(map['created_at']),
-    updatedAt: safeDateTime(map['updated_at']),
+    createdAt: safeDateTime(map['created_at'])!,
+    updatedAt: safeDateTime(map['updated_at'])!,
   );
 }
 
+/// Extension to convert [HomeFoodCampaignModel] to [HomeFoodCampaignEntity].
 extension FoodCampaignModelEx on HomeFoodCampaignModel {
+  /// Converts the [HomeFoodCampaignModel] to a [HomeFoodCampaignEntity].
   HomeFoodCampaignEntity toEntity() {
     return HomeFoodCampaignEntity(
       id: id,
