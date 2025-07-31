@@ -188,9 +188,3 @@ Run tests using:
 ```bash
 flutter test
 ```
-
-## 🙏 Acknowledgments
-
-- StackFood API for providing the public API
-- Flutter community for excellent documentation
-- 6amtech for the API services
